@@ -119,6 +119,8 @@ def getProcessedData():
 
     do_data_medians = do_data.groupby('date_2').median()
 
+    do_data_medians['month_str'] = do_data_medians.month.map(lambda n : month_n2s(n))
+
     do_data_medians.to_csv('../data/processed/do_data_medians_groupedby_date.csv')
 
     return do_data, do_data_medians
