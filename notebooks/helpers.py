@@ -124,3 +124,62 @@ def getProcessedData():
     do_data_medians.to_csv('../data/processed/do_data_medians_groupedby_date.csv')
 
     return do_data, do_data_medians
+
+def exploratoryPlots(do_data_medians):
+    plt.figure(figsize = (16, 9))
+
+    sns.distplot(a=do_data_medians['lane 1'], label = 'lane 1')
+    sns.distplot(a=do_data_medians['lane 2'], label = 'lane 2')
+    sns.distplot(a=do_data_medians['lane 3 '], label = 'lane 3')
+    sns.distplot(a=do_data_medians['lane 4'], label = 'lane 4')
+    sns.distplot(a=do_data_medians['lane 5'], label = 'lane 5')
+
+    plt.legend()
+
+    plt.show()
+
+    plt.figure(figsize = (16, 9))
+
+    sns.distplot(a=do_data_medians['lane 1'], label = 'lane 1', rug = True)
+
+    plt.legend()
+
+    plt.show()
+
+    plt.figure(figsize = (16, 9))
+
+    sns.distplot(a=do_data_medians['lane 2'], label = 'lane 2', rug = True)
+
+    plt.legend()
+
+    plt.show()
+
+    plt.figure(figsize = (16, 9))
+
+    sns.distplot(a=do_data_medians['lane 3 '], label = 'lane 3', rug = True)
+
+    plt.legend()
+
+    plt.show()
+
+    plt.figure(figsize = (16, 9))
+
+    sns.distplot(a=do_data_medians['lane 4'], label = 'lane 4', rug = True)
+
+    plt.legend()
+
+    plt.show()
+
+    plt.figure(figsize = (16, 9))
+    
+    sns.distplot(a=do_data_medians['lane 5'], label = 'lane 5', rug = True)
+
+    plt.legend()
+
+    plt.show()
+
+    plt.figure(figsize = (16, 9))
+
+    sns.lineplot(data = do_data_medians[['lane 1', 'lane 2', 'lane 3 ', 'lane 4', 'lane 5']])
+
+    plt.show()
