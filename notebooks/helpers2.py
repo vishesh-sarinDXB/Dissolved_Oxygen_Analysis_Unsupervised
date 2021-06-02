@@ -112,8 +112,8 @@ def bin2s(d):
     elif d == 11:
         return '10PM_midnight'
 
-def getProcessedData():
-    do_data = pd.read_csv('../data/raw/DO data.csv')
+
+def cleanDates(do_data):
     do_data['dt'] = do_data['year'].astype(str) + '-' + do_data['month'].astype(str) + '-' + \
                 do_data['day'].astype(str) + ' ' + do_data['time']
 
@@ -126,6 +126,11 @@ def getProcessedData():
     do_data = do_data.drop(['dt'], axis = 1)
 
     do_data = do_data.set_index(do_data['date_time'])
+
+def getDataAndSummary():
+    do_data = pd.read_csv('../data/raw/DO data.csv')
+    
+    do_data = cleanDates(do_data)
 
     do_data['month_str'] = do_data.month.map(lambda n : month_n2s(n))
 
@@ -144,4 +149,12 @@ def getProcessedData():
     do_data_tb = do_data.groupby('timebins_int')
 
     do_data_mtb = do_data.groupby(['month', 'timebins_int'])
+
+    do_data_month_medians = do_data_month.median()
+
+    do_data_dow_medians = do_data_dow.median()
+
+    do_data_tb_medians = do_data_tb.median()
+
+    do_data_mtb_medians = do_data_mtb.median()
 
