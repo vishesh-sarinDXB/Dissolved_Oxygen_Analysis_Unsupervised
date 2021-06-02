@@ -127,11 +127,6 @@ def cleanDates(do_data):
 
     do_data = do_data.set_index(do_data['date_time'])
 
-def getDataAndSummary():
-    do_data = pd.read_csv('../data/raw/DO data.csv')
-    
-    do_data = cleanDates(do_data)
-
     do_data['month_str'] = do_data.month.map(lambda n : month_n2s(n))
 
     do_data['dayofweek_int'] = do_data.date_time.map(lambda x : x.weekday())
@@ -142,19 +137,30 @@ def getDataAndSummary():
 
     do_data['timebins_str'] = do_data.timebins_int.map(lambda t : bin2s(t))
 
+    return do_data
+
+def getDataAndSummary():
+    do_data = pd.read_csv('../data/raw/DO data.csv')
+    
+    do_data = cleanDates(do_data)
+
+    do_data_day = do_data.groupby('date')
+
     do_data_month = do_data.groupby('month')
 
-    do_data_dow = do_data.groupby('dayofweek_int')
+    do_data_dayOfWeek = do_data.groupby('dayofweek_int')
 
-    do_data_tb = do_data.groupby('timebins_int')
+    do_data_timeBins = do_data.groupby('timebins_int')
 
-    do_data_mtb = do_data.groupby(['month', 'timebins_int'])
+    do_data_monthTimeBins = do_data.groupby(['month', 'timebins_int'])
 
-    do_data_month_medians = do_data_month.median()
+    return do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins
 
-    do_data_dow_medians = do_data_dow.median()
+    # do_data_month_medians = do_data_month.median()
 
-    do_data_tb_medians = do_data_tb.median()
+    # do_data_dow_medians = do_data_dow.median()
 
-    do_data_mtb_medians = do_data_mtb.median()
+    # do_data_tb_medians = do_data_tb.median()
+
+    # do_data_mtb_medians = do_data_mtb.median()
 
