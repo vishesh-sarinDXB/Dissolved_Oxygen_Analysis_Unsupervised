@@ -154,6 +154,12 @@ def getDataAndSummary():
 
     do_data_monthTimeBins = do_data.groupby(['month', 'timebins_int'])
 
+
+
+    #add descriptive statistics to appropriate directories summary
+
+    #add medians to appropariate directories data
+
     return do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins
 
     # do_data_month_medians = do_data_month.median()
