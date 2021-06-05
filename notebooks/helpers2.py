@@ -20,29 +20,29 @@ time_1159pm = datetime.time(23, 59, 59)
 
 def month_n2s(n):
     if n == 10:
-        return 'Oct'
+        return 'Oct, 29.9 (2004) / 30.7 (2005)'
     elif n == 11:
-        return 'Nov'
+        return 'Nov, 26.3 (2004) / 27.8 (2005)'
     elif n == 12:
-        return 'Dec'
+        return 'Dec, 21.8 (2004) / 23 (2005)'
     elif n == 1:
-        return 'Jan'
+        return 'Jan, 19.5 (2005) / 20 (2006)'
     elif n == 2:
-        return 'Feb'
+        return 'Feb, 20.7 (2005), / 22.7 (2006)'
     elif n == 3:
-        return 'March'
+        return 'March, 23.8 (2005)'
     elif n == 4:
-        return 'April'
+        return 'April, 28 (2005)'
     elif n == 5:
-        return 'May'
+        return 'May, 31.6 (2005)'
     elif n == 6:
-        return 'June'
+        return 'June, 33.4 (2005)'
     elif n == 7:
-        return 'July'
+        return 'July, 35.3 (2005)'
     elif n == 8:
-        return 'August'
+        return 'August, 35.7 (2005)'
     else:
-        return 'Sep'
+        return 'Sep, 33.4 (2005)'
 
 def day_n2s(n):
     if n == 0:
@@ -62,29 +62,29 @@ def day_n2s(n):
 
 def time2bin(d):
     if time_midnight <= d < time_2am:
-        return 'midnight_2AM'
+        return 0
     elif time_2am <= d < time_4am:
-        return '2AM_4AM'
+        return 1
     elif time_4am <= d < time_6am:
-        return '4AM_6AM'
+        return 2
     elif time_6am <= d < time_8am:
-        return '6AM_8AM'
+        return 3
     elif time_8am <= d < time_10am:
-        return '8AM_10AM'
+        return 4
     elif time_10am <= d < time_noon:
-        return '10AM_noon'
+        return 5
     elif time_noon <= d < time_2pm:
-        return 'noon_2PM'
+        return 6
     elif time_2pm <= d < time_4pm:
-        return '2PM_4PM'
+        return 7
     elif time_4pm <= d < time_6pm:
-        return '4PM_6PM'
+        return 8
     elif time_6pm <= d < time_8pm:
-        return '6PM_8PM'
+        return 9
     elif time_8pm <= d < time_10pm:
-        return '8PM_10PM'
+        return 10
     elif time_10pm <= d <= time_1159pm:
-        return '10PM_midnight'
+        return 11
 
 def bin2s(d):
     if d == 0:
