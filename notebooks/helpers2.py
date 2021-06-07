@@ -127,6 +127,8 @@ def cleanDates(do_data):
 
     do_data = do_data.set_index(do_data['date_time'])
 
+    do_data = do_data.drop(['date_time'], axis = 1) #remove later if necessary
+
     do_data['month_str'] = do_data.month.map(lambda n : month_n2s(n))
 
     do_data['dayofweek_int'] = do_data.date_time.map(lambda x : x.weekday())
@@ -139,8 +141,8 @@ def cleanDates(do_data):
 
     return do_data
 
-def getDataAndSummary():
-    do_data = pd.read_csv('../data/raw/DO data.csv')
+def getDataAndSummary(path = '../data/raw/DO data.csv'):
+    do_data = pd.read_csv(path)
     
     do_data = cleanDates(do_data)
 
@@ -154,7 +156,15 @@ def getDataAndSummary():
 
     do_data_monthTimeBins = do_data.groupby(['month', 'timebins_int'])
 
+    do_data.to_csv('../data/processed/do_data_anot.csv')
 
+    do_data.describe().drop(columns = ['day', 'month', 'year', 'dayofweek_int', 'timebins_int']).to_csv('../summary/descriptive_stats/do_data.csv')
+    
+    do_data_day.describe().drop(columns = ['day', 'month', 'timebins_int', 'dayofweek_int', 'year']).to_csv('../summary/descriptive_stats/do_data_groupedby_date.csv')
+
+    do_data_month.describe().drop(columns = ['year', 'day', 'dayofweek_int', 'timebins_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_month.csv')
+
+    
 
     #add descriptive statistics to appropriate directories summary
 
