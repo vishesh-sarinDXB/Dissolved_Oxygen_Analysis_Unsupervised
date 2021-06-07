@@ -164,7 +164,11 @@ def getDataAndSummary(path = '../data/raw/DO data.csv'):
 
     do_data_month.describe().drop(columns = ['year', 'day', 'dayofweek_int', 'timebins_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_month.csv')
 
+    do_data_dayOfWeek.describe().drop(columns = ['day', 'month', 'year', 'timebins_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_dayOfWeek.csv')
 
+    do_data_timeBins.describe().drop(columns = ['day', 'month', 'year', 'dayofweek_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_timeBins.csv')
+
+    do_data_monthTimeBins.describe().drop(columns = ['day', 'year', 'dayofweek_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_monthTimeBins.csv')    
 
     #add descriptive statistics to appropriate directories summary
 
