@@ -141,11 +141,8 @@ def cleanDates(do_data):
 
     return do_data
 
-def getDataAndSummary(path = '../data/raw/DO data.csv'):
-    do_data = pd.read_csv(path)
-    
-    do_data = cleanDates(do_data)
-
+def getGroupByObj(do_data):
+        
     do_data_day = do_data.groupby('date')
 
     do_data_month = do_data.groupby('month')
@@ -155,6 +152,15 @@ def getDataAndSummary(path = '../data/raw/DO data.csv'):
     do_data_timeBins = do_data.groupby('timebins_int')
 
     do_data_monthTimeBins = do_data.groupby(['month', 'timebins_int'])
+
+    return do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins
+
+def getDataAndSummary(path = '../data/raw/DO data.csv'):
+    do_data = pd.read_csv(path)
+    
+    do_data = cleanDates(do_data)
+
+    do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins = getGroupByObj(do_data)
 
     do_data.to_csv('../data/processed/do_data_anot.csv')
 
