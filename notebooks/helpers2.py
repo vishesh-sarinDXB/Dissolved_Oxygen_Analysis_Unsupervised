@@ -155,13 +155,8 @@ def getGroupByObj(do_data):
 
     return do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins
 
-def getDataAndSummary(path = '../data/raw/DO data.csv'):
-    do_data = pd.read_csv(path)
+def writeToFile(do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins):
     
-    do_data = cleanDates(do_data)
-
-    do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins = getGroupByObj(do_data)
-
     do_data.to_csv('../data/processed/do_data_anot.csv')
 
     do_data.describe().drop(columns = ['day', 'month', 'year', 'dayofweek_int', 'timebins_int']).to_csv('../summary/descriptive_stats/do_data.csv')
@@ -174,7 +169,17 @@ def getDataAndSummary(path = '../data/raw/DO data.csv'):
 
     do_data_timeBins.describe().drop(columns = ['day', 'month', 'year', 'dayofweek_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_timeBins.csv')
 
-    do_data_monthTimeBins.describe().drop(columns = ['day', 'year', 'dayofweek_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_monthTimeBins.csv')    
+    do_data_monthTimeBins.describe().drop(columns = ['day', 'year', 'dayofweek_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_monthTimeBins.csv')
+
+
+def getDataAndSummary(path = '../data/raw/DO data.csv'):
+    do_data = pd.read_csv(path)
+    
+    do_data = cleanDates(do_data)
+
+    do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins = getGroupByObj(do_data)
+
+    writeToFile(do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins)
 
     #add descriptive statistics to appropriate directories summary
 
