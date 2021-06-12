@@ -155,7 +155,17 @@ def getGroupByObj(do_data):
 
     return do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins
 
-def writeToFile(do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins):
+def writeToFileAndGetMedians(do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins):
+        
+    do_data_day_medians = do_data_day.median().drop(columns = ['day', 'month', 'year', 'dayofweek_int', 'timebins_int'])
+    
+    do_data_month_medians = do_data_month.median().drop(columns = ['day', 'year', 'dayofweek_int', 'timebins_int'])
+    
+    do_data_dayOfWeek_medians = do_data_dayOfWeek.median().drop(columns = ['day', 'month', 'year', 'timebins_int'])
+    
+    do_data_timeBins_medians = do_data_timeBins.median().drop(columns = ['day', 'month', 'year', 'dayofweek_int'])
+    
+    do_data_monthTimeBins_medians = do_data_monthTimeBins.median().drop(columns = ['day', 'year', 'dayofweek_int'])
     
     do_data.to_csv('../data/processed/do_data_anot.csv')
 
@@ -171,6 +181,17 @@ def writeToFile(do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_
 
     do_data_monthTimeBins.describe().drop(columns = ['day', 'year', 'dayofweek_int']).to_csv('../summary/descriptive_stats/do_data_groupedby_monthTimeBins.csv')
 
+    do_data_day_medians.to_csv('../data/processed/do_data_medians_groupedby_date.csv')
+
+    do_data_month_medians.to_csv('../data/processed/do_data_medians_groupedby_month.csv')
+
+    do_data_dayOfWeek_medians.to_csv('../data/processed/do_data_medians_groupedby_dayOfWeek.csv')
+
+    do_data_timeBins_medians.to_csv('../data/processed/do_data_medians_groupedby_timeBins.csv')
+
+    do_data_monthTimeBins_medians.to_csv('../data/processed/do_data_medians_groupedby_monthTimeBins.csv')
+
+    return do_data_day_medians, do_data_month_medians, do_data_dayOfWeek_medians, do_data_timeBins_medians, do_data_monthTimeBins_medians
 
 def getDataAndSummary(path = '../data/raw/DO data.csv'):
     do_data = pd.read_csv(path)
@@ -179,11 +200,11 @@ def getDataAndSummary(path = '../data/raw/DO data.csv'):
 
     do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins = getGroupByObj(do_data)
 
-    writeToFile(do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins)
+    do_data_day_medians, do_data_month_medians, do_data_dayOfWeek_medians, do_data_timeBins_medians, do_data_monthTimeBins_medians = \
+        writeToFileAndGetMedians(do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins)
 
-    #add medians to appropariate directories data
-
-    return do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins
+    return do_data, do_data_day, do_data_month, do_data_dayOfWeek, do_data_timeBins, do_data_monthTimeBins, \
+        do_data_day_medians, do_data_month_medians, do_data_dayOfWeek_medians, do_data_timeBins_medians, do_data_monthTimeBins_medians
 
     # do_data_month_medians = do_data_month.median()
 
